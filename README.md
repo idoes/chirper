@@ -1,4 +1,2 @@
-Easier Way to Update Diagram
+Master Branch has been cleaned. Please check out the branch option.
 ============================
-In order to update diagram (looking for .vsdx files, located in Diagram Editing folder) easier, you can choose to use IUAnyWAre MS Office 2013 Visio tool.
-If this is the first time you are using IUAnyWare, please use MS Internet Explorer to install plugins. 
