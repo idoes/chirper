@@ -1,0 +1,34 @@
+﻿@model Chirper.ViewModels.FriendViewModel
+
+@{
+    ViewBag.Title = "friends ~ cheeps";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>cheeps by <strong>@Model.Username</strong>.</h2>
+
+<p>
+    @*Html.ActionLink("Create New", "Create")*@
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.Raw("Posted On")
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cheeps)
+        </th>
+    </tr>
+
+@foreach (var item in Model.Cheeps) {
+    <tr>      
+        <td>
+            @Html.DisplayFor(modelItem => item.PostedDateTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CheepText)
+        </td>
+    </tr>
+}
+
+</table>

@@ -23,6 +23,7 @@ namespace Chirper.Controllers
         public AccountController(UserManager<ApplicationUser> userManager)
         {
             UserManager = userManager;
+            UserManager.UserValidator = new UserValidator<ApplicationUser>(UserManager) { AllowOnlyAlphanumericUserNames = false };
         }
 
         public UserManager<ApplicationUser> UserManager { get; private set; }

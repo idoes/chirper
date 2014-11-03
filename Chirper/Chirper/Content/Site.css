@@ -1,4 +1,26 @@
-﻿body {
+﻿/* Begin custom CSS */
+.home-button-link {
+    background-color: #eeeeee;
+    color: black;
+}
+
+.home-button-link:hover {
+    background-color:  #f8f8f8;
+}
+
+.table {
+    width: 60%; 
+    margin-left: auto; 
+    margin-right: auto; 
+    margin-top: 50px;
+}
+
+
+
+
+
+/* End Custom CSS */
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }
