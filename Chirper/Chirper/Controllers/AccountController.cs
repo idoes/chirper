@@ -64,30 +64,44 @@ namespace Chirper.Controllers
 
         //
         // GET: /Account/Register
+
+        //Decorator that says "Anyone can view this page, they don't have to be logged in"
         [AllowAnonymous]
         public ActionResult Register()
         {
+            //Don't do anything, just return the View named "Register"
+              // It assumes we're returning the "Register" view because we're in
+              // the Register() method
             return View();
         }
 
         //
         // POST: /Account/Register
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
+
+        [HttpPost]                      //Says that this method should only be fired on HTTP POST request 
+        [AllowAnonymous]                //Anyone can view the page
+        [ValidateAntiForgeryToken]      //Prevents XSS attacks
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+            //First, make sure the model (RegisterViewModel) only
+            //contains valid values
             if (ModelState.IsValid)
             {
+                //Create a new user with the given username
                 var user = new ApplicationUser() { UserName = model.UserName };
+
+                //Add the user to the persistent data store
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    //We were successful, so sign the user in and redirect them
+                    //to the home page of the application
                     await SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
+                    //We were not successful, so add the error to the ModelState
                     AddErrors(result);
                 }
             }
