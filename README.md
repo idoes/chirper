@@ -1,4 +1,4 @@
-Easier Way to Update Diagram
+Chirper README
 ============================
-In order to update diagram (looking for .vsdx files, located in Diagram Editing folder) easier, you can choose to use IUAnyWAre MS Office 2013 Visio tool.
-If this is the first time you are using IUAnyWare, please use MS Internet Explorer to install plugins. 
+
+Because firewall rules restrict access to the SQL server, you will not be able to debug the application locally in an IDE until you have been given access. To test the application's functionality, navigate to http://54.186.31.188 in an Internet browser.
