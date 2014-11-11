@@ -1,3 +1,5 @@
+/* Generated using Entity Framework */
+
 namespace Chirper.Models
 {
     using System;
@@ -12,6 +14,7 @@ namespace Chirper.Models
         {
         }
 
+        //tables for AspNet user management
         public virtual DbSet<AspNetRole> AspNetRoles { get; set; }
         public virtual DbSet<AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<AspNetUserLogin> AspNetUserLogins { get; set; }

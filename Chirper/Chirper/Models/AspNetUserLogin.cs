@@ -1,3 +1,6 @@
+/* Generated using Entity Framework */
+
+
 namespace Chirper.Models
 {
     using System;

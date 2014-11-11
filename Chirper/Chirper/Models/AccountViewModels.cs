@@ -2,13 +2,7 @@
 
 namespace Chirper.Models
 {
-    public class ExternalLoginConfirmationViewModel
-    {
-        [Required]
-        [Display(Name = "User name")]
-        public string UserName { get; set; }
-    }
-
+    //Viewmodel for managing password reset
     public class ManageUserViewModel
     {
         [Required]
@@ -28,10 +22,12 @@ namespace Chirper.Models
         public string ConfirmPassword { get; set; }
     }
 
+    //Viewmodel for user login
     public class LoginViewModel
     {
+        //email address as username
         [Required]
-        [Display(Name = "User name")]
+        [Display(Name = "Email")]
         public string UserName { get; set; }
 
         [Required]
@@ -43,8 +39,10 @@ namespace Chirper.Models
         public bool RememberMe { get; set; }
     }
 
+    //Viewmodel for registering new users
     public class RegisterViewModel
     {
+        //email address as username
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

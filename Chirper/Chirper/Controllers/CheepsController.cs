@@ -10,36 +10,35 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Chirper.Controllers
 {
+    [Authorize]
     public class CheepsController : Controller
     {
-        private ApplicationDbContext AppContext;
-        protected UserManager<ApplicationUser> UserManager { get; set; }
+        private IRepository _repository;
 
+        //ctors
         public CheepsController()
         {
-            AppContext = new ApplicationDbContext();
-            UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.AppContext));
+            this._repository = new Repository();
         }
+
+        public CheepsController(IRepository _repository)
+        {
+            this._repository = new Repository();
+        }
+
 
         // GET: Cheeps
         public ActionResult Index()
         {
-            var user = UserManager.FindByName(HttpContext.User.Identity.Name);
+            var user = _repository.GetUserByName(HttpContext.User.Identity.Name);
 
             //Abstract into method
-            var allCheeps = (from c in AppContext.Cheeps
-                            where c.AuthorId == user.Id
-                            select new
-                            {
-                                c.Id,
-                                c.Text,
-                                c.PostedDateTime
-                            });
+            var allUserCheeps = _repository.GetCheepsByUserId(user.Id);
 
-            if (allCheeps != null)
+            if (allUserCheeps != null)
             {
                 List<CheepViewModel> cheeps = new List<CheepViewModel>();
-                foreach (var cheep in allCheeps)
+                foreach (var cheep in allUserCheeps)
                 {
                     cheeps.Add(new CheepViewModel
                     {
@@ -55,18 +54,20 @@ namespace Chirper.Controllers
            
         }
 
+
         [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
 
+
         [HttpPost]
         public ActionResult Create([Bind(Include = "CheepText, PostedDateTime")]CheepViewModel cheep)
         {
             if (ModelState.IsValid)
             {
-                var user = UserManager.FindByName(HttpContext.User.Identity.Name);
+                var user = _repository.GetUserByName(HttpContext.User.Identity.Name);
 
                 Cheep newCheep = new Cheep() {
                     Text = cheep.CheepText,
@@ -74,8 +75,7 @@ namespace Chirper.Controllers
                     PostedDateTime = DateTime.Now
                 };
 
-                AppContext.Cheeps.Add(newCheep);
-                AppContext.SaveChanges();
+                _repository.CreateCheep(newCheep);
 
                 return RedirectToAction("Index");
             }

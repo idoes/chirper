@@ -192,6 +192,8 @@
     <Compile Include="Models\AspNetUserLogin.cs" />
     <Compile Include="Models\Cheep.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IRepository.cs" />
+    <Compile Include="Models\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CheepViewModel.cs" />

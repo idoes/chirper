@@ -3,12 +3,13 @@ using System.Data.Entity;
 
 namespace Chirper.Models
 {
-    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
+    //application user class
     public class ApplicationUser : IdentityUser
     {
        
     }
 
+    //application database class
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
@@ -17,6 +18,7 @@ namespace Chirper.Models
             
         }
 
-       public DbSet<Cheep> Cheeps { get; set; }
+        //Cheeps table
+        public DbSet<Cheep> Cheeps { get; set; }
     }
 }

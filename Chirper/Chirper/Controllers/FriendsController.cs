@@ -1,71 +1,71 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using Chirper.Models;
 using Chirper.ViewModels;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Chirper.Controllers
 {
+    [Authorize]
     public class FriendsController : Controller
     {
-        private AspNetContext AspNetContext;
-        private ApplicationDbContext AppContext;
+        private IRepository _repository;
 
-        protected UserManager<ApplicationUser> UserManager { get; set; }
-
+        //ctors
         public FriendsController()
         {
-            AspNetContext = new AspNetContext();
-            AppContext = new ApplicationDbContext();
-            UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(this.AppContext));
+            this._repository = new Repository();
         }
+
+        public FriendsController(IRepository _repository)
+        {
+            this._repository = new Repository();
+        }
+
+
 
         // GET: Friends
         [HttpGet]
         public ActionResult Index()
         {
-            var users = AspNetContext.AspNetUsers.ToList();
+            var users = _repository.GetAllUsers();
             return View(users);
         }
 
-        public ActionResult Cheeps(string id)
+        public ActionResult Cheeps(string userId)
         {
-            var user = UserManager.FindById(id);
-
-            var allCheeps = (from c in AppContext.Cheeps
-                            where c.AuthorId == id
-                            select new
-                            {
-                                c.Text,
-                                c.PostedDateTime
-                            }).ToList();
-
-            if (allCheeps != null)
+            if (!String.IsNullOrWhiteSpace(userId))
             {
-                List<CheepViewModel> cheeps = new List<CheepViewModel>();
-                foreach (var cheep in allCheeps)
+                //get all cheeps
+                var userCheeps = _repository.GetCheepsByUserId(userId);
+
+                if (userCheeps != null)
                 {
-                    cheeps.Add(new CheepViewModel
+
+                    //TODO:
+                    //Create a viewmodel with the Cheeps and Friends models
+                    List<CheepViewModel> cheeps = new List<CheepViewModel>();
+                    foreach (var cheep in userCheeps)
                     {
-                        CheepText = cheep.Text,
-                        PostedDateTime = cheep.PostedDateTime.ToShortDateString()
-                    });
+                        cheeps.Add(new CheepViewModel
+                        {
+                            CheepText = cheep.Text,
+                            PostedDateTime = cheep.PostedDateTime.ToShortDateString()
+                        });
+                    }
+
+                    FriendViewModel friend = new FriendViewModel()
+                    {
+                        Username = _repository.GetUserNameById(userId),
+                        Cheeps = cheeps
+                    };
+
+                    return View(friend);
                 }
 
-                FriendViewModel friend = new FriendViewModel()
-                {
-                    Username = user.UserName,
-                    Cheeps = cheeps
-                };
-
-                return View(friend);
             }
 
-            return View();
+            return View("Error");
         }
     }
 }
