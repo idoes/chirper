@@ -183,8 +183,20 @@
     <Compile Include="Migrations\201411030241369_Cheep.Designer.cs">
       <DependentUpon>201411030241369_Cheep.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411180140413_NewUserFields.cs" />
+    <Compile Include="Migrations\201411180140413_NewUserFields.Designer.cs">
+      <DependentUpon>201411180140413_NewUserFields.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411180158151_SecurityQuestions.cs" />
+    <Compile Include="Migrations\201411180158151_SecurityQuestions.Designer.cs">
+      <DependentUpon>201411180158151_SecurityQuestions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411180239414_SecurityQuestions2.cs" />
+    <Compile Include="Migrations\201411180239414_SecurityQuestions2.Designer.cs">
+      <DependentUpon>201411180239414_SecurityQuestions2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\AspNetContext.cs" />
     <Compile Include="Models\AspNetRole.cs" />
     <Compile Include="Models\AspNetUser.cs" />
@@ -242,11 +254,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
-    <Content Include="Views\Account\_RemoveAccountPartial.cshtml" />
     <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
-    <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
@@ -281,6 +289,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411030241369_Cheep.resx">
       <DependentUpon>201411030241369_Cheep.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411180140413_NewUserFields.resx">
+      <DependentUpon>201411180140413_NewUserFields.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411180158151_SecurityQuestions.resx">
+      <DependentUpon>201411180158151_SecurityQuestions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411180239414_SecurityQuestions2.resx">
+      <DependentUpon>201411180239414_SecurityQuestions2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

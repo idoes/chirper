@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Chirper.Models;
+using Chirper.ViewModels;
 
 namespace Chirper.Controllers
 {
@@ -24,7 +25,7 @@ namespace Chirper.Controllers
         {
             UserManager = userManager;
 
-            //set user validation property to allow more tan alphnum characters
+            //set user validation property to allow more than alphnum characters
             //for setting the email address as the username
             UserManager.UserValidator = new UserValidator<ApplicationUser>(UserManager) { AllowOnlyAlphanumericUserNames = false };
         }
@@ -83,8 +84,18 @@ namespace Chirper.Controllers
         {
             if (ModelState.IsValid)
             {
-                //Create a new user with the given username
-                var user = new ApplicationUser() { UserName = model.UserName };
+                //Create a new user with the given fields
+                var user = new ApplicationUser() { 
+                    UserName = model.UserName,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    SecurityQuestionOne = model.SecurityQuestionOne,
+                    SecurityAnswerOne = model.SecurityAnswerOne,
+                    SecurityQuestionTwo = model.SecurityQuestionTwo,
+                    SecurityAnswerTwo = model.SecurityAnswerTwo,
+                    SecurityQuestionThree = model.SecurityQuestionThree,
+                    SecurityAnswerThree = model.SecurityAnswerThree
+                };
 
                 //Add the user to the persistent data store
                 var result = await UserManager.CreateAsync(user, model.Password);
