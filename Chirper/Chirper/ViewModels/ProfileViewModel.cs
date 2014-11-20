@@ -7,5 +7,6 @@ namespace Chirper.ViewModels
 {
     public class ProfileViewModel
     {
+        //test
     }
 }
