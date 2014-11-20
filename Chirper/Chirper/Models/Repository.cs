@@ -24,17 +24,15 @@ namespace Chirper.Models
         //method to return cheeps by user ID
         public IEnumerable<Cheep> GetCheepsByUserId(string userId)
         {
-            var cheepsById = from c in app_db.Cheeps
-                             where c.AuthorId == userId
-                             select new Cheep
-                             {
-                                Id = c.Id,
-                                Text = c.Text,
-                                AuthorId = c.AuthorId,
-                                PostedDateTime = c.PostedDateTime
-                             };
-
-            return cheepsById.ToList();
+            return (from c in app_db.Cheeps
+                    where c.AuthorId == userId
+                    select new
+                    {
+                        Id = c.Id,
+                        Text = c.Text,
+                        AuthorId = c.AuthorId,
+                        PostedDateTime = c.PostedDateTime
+                    }).ToList() as IEnumerable<Cheep>;
         }
 
         //method to return a user's ID from their name

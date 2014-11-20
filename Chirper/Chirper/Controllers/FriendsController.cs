@@ -32,12 +32,13 @@ namespace Chirper.Controllers
             return View(users);
         }
 
-        public ActionResult Cheeps(string userId)
+        [HttpGet]
+        public ActionResult Cheeps(string id)
         {
-            if (!String.IsNullOrWhiteSpace(userId))
+            if (!String.IsNullOrWhiteSpace(id))
             {
                 //get all cheeps
-                var userCheeps = _repository.GetCheepsByUserId(userId);
+                var userCheeps = _repository.GetCheepsByUserId(id);
 
                 if (userCheeps != null)
                 {
@@ -56,16 +57,19 @@ namespace Chirper.Controllers
 
                     FriendViewModel friend = new FriendViewModel()
                     {
-                        Username = _repository.GetUserNameById(userId),
+                        Username = _repository.GetUserNameById(id),
                         Cheeps = cheeps
                     };
 
                     return View(friend);
                 }
 
+                ViewBag.Error = "User has no cheeps.";
+                return View("Error");
             }
 
-            return View("Error");
-        }
+            ViewBag.Error = "User could not be found.";
+            return View("Error");           
+        }        
     }
 }

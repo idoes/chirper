@@ -210,6 +210,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CheepViewModel.cs" />
     <Compile Include="ViewModels\FriendViewModel.cs" />
+    <Compile Include="ViewModels\ProfileViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
