@@ -13,5 +13,12 @@ namespace Chirper.Models
         AspNetUser GetUserByName(string userName);
         string GetUserNameById(string userId);
         void CreateCheep(Cheep newCheep);
+        
+        //ProfileControllder Demands
+        string GetUserFirstNameById(string userId);
+        string GetUserLastNameById(string userId);
+        AspNetUser GetAspNetUserById(string userId);
+        void UpdateUser(AspNetUser aspNetUser);
+        void Save();
     }
 }

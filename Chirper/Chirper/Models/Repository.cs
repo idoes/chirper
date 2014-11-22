@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Data.Entity;
 
 namespace Chirper.Models
 {
@@ -68,6 +69,41 @@ namespace Chirper.Models
         {
             app_db.Cheeps.Add(newCheep);
             app_db.SaveChanges();
+        }
+
+/*ProfileControllder demands start
+*/
+        
+        //method to return a user's first name by providing user's username
+        //  which is Email value in our application's intepratation. 
+        public string GetUserFirstNameById(string userId)
+        {
+            var user = GetUserById(userId);
+            return user.FirstName;
+        }
+
+        //method to return a suser's last name by providing user's username
+        //  which is Email value in our application's intepratation. 
+        public string GetUserLastNameById(string userId)
+        {
+            var user = GetUserById(userId);
+            return user.LastName;
+        }
+
+        public AspNetUser GetAspNetUserById(string userId)
+        {
+            return aspnet_db.AspNetUsers.Find(userId);
+        }
+
+        //method to update Table.AspNetUser
+        public void UpdateUser(AspNetUser aspNetUser)
+        {
+            aspnet_db.Entry(aspNetUser).State = EntityState.Modified;
+        }
+
+        public void Save()
+        {
+            aspnet_db.SaveChanges();
         }
     }
 }

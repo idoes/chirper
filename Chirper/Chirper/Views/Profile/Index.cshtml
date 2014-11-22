@@ -1,0 +1,23 @@
+﻿@model Chirper.ViewModels.ProfileViewModel
+
+@{
+    ViewBag.Title = "Profile";
+}
+
+<h2>Profile</h2>
+<table class="table">
+    <tr>
+        <th>@Html.DisplayNameFor(model => model.id)</th>
+        <th>@Html.DisplayNameFor(model => model.UserName)</th>
+        <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+        <th>@Html.DisplayNameFor(model => model.LastName)</th>
+        <th>Action</th>
+    </tr>
+    <tr>
+        <th>@Model.id</th>
+        <th>@Model.UserName</th>
+        <th>@Model.FirstName</th>
+        <th>@Model.LastName</th>
+        <th>@Html.ActionLink("Update", "Update", new { id = @Model.id })</th>
+    </tr>
+</table>

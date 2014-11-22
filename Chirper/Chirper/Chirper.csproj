@@ -164,6 +164,7 @@
     <Compile Include="Controllers\CheepsController.cs" />
     <Compile Include="Controllers\FriendsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -264,6 +265,8 @@
     <Content Include="Views\Cheeps\Create.cshtml" />
     <Content Include="Views\Friends\Index.cshtml" />
     <Content Include="Views\Friends\Cheeps.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
+    <Content Include="Views\Profile\Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
