@@ -195,7 +195,17 @@
     <Compile Include="Migrations\201411180239414_SecurityQuestions2.Designer.cs">
       <DependentUpon>201411180239414_SecurityQuestions2.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201411230325258_UpdatedUser.cs" />
+    <Compile Include="Migrations\201411230325258_UpdatedUser.Designer.cs">
+      <DependentUpon>201411230325258_UpdatedUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411232004271_CheepNotNull.cs" />
+    <Compile Include="Migrations\201411232004271_CheepNotNull.Designer.cs">
+      <DependentUpon>201411232004271_CheepNotNull.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\SecurityAnswers.cs" />
+    <Compile Include="Models\SecurityQuestions.cs" />
     <Compile Include="ViewModels\AccountViewModels.cs" />
     <Compile Include="Models\AspNetContext.cs" />
     <Compile Include="Models\AspNetRole.cs" />
@@ -254,7 +264,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
@@ -298,6 +307,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411180239414_SecurityQuestions2.resx">
       <DependentUpon>201411180239414_SecurityQuestions2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411230325258_UpdatedUser.resx">
+      <DependentUpon>201411230325258_UpdatedUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411232004271_CheepNotNull.resx">
+      <DependentUpon>201411232004271_CheepNotNull.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

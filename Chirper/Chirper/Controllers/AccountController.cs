@@ -16,13 +16,17 @@ namespace Chirper.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private IRepository _repository;
+
         public AccountController()
             : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new ApplicationDbContext())))
         {
+            this._repository = new Repository();
         }
 
         public AccountController(UserManager<ApplicationUser> userManager)
         {
+            this._repository = new Repository();
             UserManager = userManager;
 
             //set user validation property to allow more than alphnum characters
@@ -89,12 +93,12 @@ namespace Chirper.Controllers
                     UserName = model.UserName,
                     FirstName = model.FirstName,
                     LastName = model.LastName,
-                    SecurityQuestionOne = model.SecurityQuestionOne,
-                    SecurityAnswerOne = model.SecurityAnswerOne,
-                    SecurityQuestionTwo = model.SecurityQuestionTwo,
-                    SecurityAnswerTwo = model.SecurityAnswerTwo,
-                    SecurityQuestionThree = model.SecurityQuestionThree,
-                    SecurityAnswerThree = model.SecurityAnswerThree
+                    SecurityQuestionOne = model.SecurityQuestions.QuestionOne,
+                    SecurityAnswerOne = UserManager.PasswordHasher.HashPassword(model.SecurityAnswers.AnswerOne),
+                    SecurityQuestionTwo = model.SecurityQuestions.QuestionTwo,
+                    SecurityAnswerTwo = UserManager.PasswordHasher.HashPassword(model.SecurityAnswers.AnswerTwo),
+                    SecurityQuestionThree = model.SecurityQuestions.QuestionThree,
+                    SecurityAnswerThree = UserManager.PasswordHasher.HashPassword(model.SecurityAnswers.AnswerThree)
                 };
 
                 //Add the user to the persistent data store
@@ -131,8 +135,44 @@ namespace Chirper.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : "";
             ViewBag.HasLocalPassword = HasPassword();
-            ViewBag.ReturnUrl = Url.Action("Manage");
+
+            // Get user's security questions from the data store
+            var securityQuestions =  _repository.GetSecurityQuestions(User.Identity.GetUserId());
+
+            // Check for null
+            if (securityQuestions != null)
+            {
+                // Check for not null and not empty strings
+                if (!String.IsNullOrWhiteSpace(securityQuestions.QuestionOne) &&
+                !String.IsNullOrWhiteSpace(securityQuestions.QuestionTwo) &&
+                !String.IsNullOrWhiteSpace(securityQuestions.QuestionThree))
+                {
+                    // Set ViewBag property. Could use a ViewModel, 
+                    // but again, convenient ^_^
+                    /*
+                    ViewBag.SecurityQuestionOne = securityQuestions.QuestionOne;
+                    ViewBag.SecurityQuestionTwo = securityQuestions.QuestionTwo;
+                    ViewBag.SecurityQuestionThree = securityQuestions.QuestionThree;
+                    */
+
+                    ManageUserViewModel mvm = new ManageUserViewModel()
+                    {
+                        SecurityQuestions = new SecurityQuestions()
+                        {
+                            QuestionOne = securityQuestions.QuestionOne,
+                            QuestionTwo = securityQuestions.QuestionTwo,
+                            QuestionThree = securityQuestions.QuestionThree
+                        }
+                    };
+
+                    ViewBag.ReturnUrl = Url.Action("Manage");
+                    return View(mvm);
+                }
+            }
+
+            ViewBag.ErrorMessage = "Could not retrieve security questions. Password reset disabled.";
             return View();
+           
         }
 
         //
@@ -149,38 +189,36 @@ namespace Chirper.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    //create new identity with updated password
-                    IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
-                    if (result.Succeeded)
-                    {
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
-                    }
-                    else
-                    {
-                        //otherwise add ModelState error
-                        AddErrors(result);
-                    }
-                }
-            }
-            else
-            {
-                // User does not have a password so remove any validation errors caused by a missing OldPassword field
-                ModelState state = ModelState["OldPassword"];
-                if (state != null)
-                {
-                    state.Errors.Clear();
-                }
+                    SecurityQuestions storedQuestions = _repository.GetSecurityQuestions(User.Identity.GetUserId());
+                    model.SecurityQuestions = storedQuestions;
 
-                if (ModelState.IsValid)
-                {
-                    IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
-                    if (result.Succeeded)
+                    SecurityAnswers storedAnswers = _repository.GetSecurityAnswers(User.Identity.GetUserId());
+
+                    var verifyAnswerOne = UserManager.PasswordHasher.VerifyHashedPassword(storedAnswers.AnswerOne, model.SecurityAnswers.AnswerOne);
+                    var verifyAnswerTwo = UserManager.PasswordHasher.VerifyHashedPassword(storedAnswers.AnswerTwo, model.SecurityAnswers.AnswerTwo);
+                    var verifyAnswerThree = UserManager.PasswordHasher.VerifyHashedPassword(storedAnswers.AnswerThree, model.SecurityAnswers.AnswerThree);
+
+                    if (verifyAnswerOne == PasswordVerificationResult.Success &&
+                        verifyAnswerTwo == PasswordVerificationResult.Success &&
+                        verifyAnswerThree == PasswordVerificationResult.Success)
                     {
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
+                        //create new identity with updated password
+                        IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+                        if (result.Succeeded)
+                        {
+                            return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
+                        }
+                        else
+                        {
+                            //otherwise add ModelState error
+                            AddErrors(result);
+                        }
                     }
+
                     else
                     {
-                        AddErrors(result);
+                        ViewBag.ErrorMessage = "One or more security answers are incorrect.";
+                        ModelState.AddModelError("", "One or more security answers are incorrect.");
                     }
                 }
             }
@@ -261,6 +299,7 @@ namespace Chirper.Controllers
             ChangePasswordSuccess,
             SetPasswordSuccess,
             RemoveLoginSuccess,
+            MissingSecurityQuestions,
             Error
         }
 

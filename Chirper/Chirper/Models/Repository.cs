@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Common;
+using System.Data.Entity.Core.Objects;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Web;
 
@@ -24,17 +27,9 @@ namespace Chirper.Models
         //method to return cheeps by user ID
         public IEnumerable<Cheep> GetCheepsByUserId(string userId)
         {
-            var cheepsById = from c in app_db.Cheeps
-                             where c.AuthorId == userId
-                             select new Cheep
-                             {
-                                Id = c.Id,
-                                Text = c.Text,
-                                AuthorId = c.AuthorId,
-                                PostedDateTime = c.PostedDateTime
-                             };
+            var cheeps = app_db.Cheeps.Where(x => x.AuthorId == userId).ToList();
 
-            return cheepsById.ToList();
+            return cheeps as IEnumerable<Cheep>;
         }
 
         //method to return a user's ID from their name
@@ -47,7 +42,7 @@ namespace Chirper.Models
             return userByName;
         }
 
-        //method to return a username from a user's ID
+        //method to return a user from a user's ID
         public AspNetUser GetUserById(string userId)
         {
             var userById = aspnet_db.AspNetUsers
@@ -70,6 +65,40 @@ namespace Chirper.Models
         {
             app_db.Cheeps.Add(newCheep);
             app_db.SaveChanges();
+        }
+
+        public SecurityQuestions GetSecurityQuestions(string userId)
+        {           
+            // Get all security questions from database
+            var userById = aspnet_db.AspNetUsers
+                                    .Where(c => c.Id == userId)
+                                    .FirstOrDefault();
+
+            // Set questions into designated model
+            SecurityQuestions securityQuestions = new SecurityQuestions()
+            {
+                QuestionOne = userById.SecurityQuestionOne,
+                QuestionTwo = userById.SecurityQuestionTwo,
+                QuestionThree = userById.SecurityQuestionThree,
+            };
+
+            return securityQuestions;
+        }
+
+        public SecurityAnswers GetSecurityAnswers(string userId)
+        {
+            // Get all security answer from database
+            var userById = GetUserById(userId);
+
+            // Set answers into designated model
+            SecurityAnswers securityAnswers = new SecurityAnswers()
+            {
+                AnswerOne = userById.SecurityAnswerOne,
+                AnswerTwo = userById.SecurityAnswerTwo,
+                AnswerThree = userById.SecurityAnswerThree,
+            };
+
+            return securityAnswers;
         }
     }
 }

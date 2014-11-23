@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Chirper.Models;
 
 namespace Chirper.ViewModels
 {
@@ -20,6 +21,12 @@ namespace Chirper.ViewModels
         [Display(Name = "Confirm new password")]
         [Compare("NewPassword", ErrorMessage = "The new password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        //Security questions
+        public SecurityQuestions SecurityQuestions { get; set; }
+       
+        // Security Answers
+        public SecurityAnswers SecurityAnswers { get; set; }
     }
 
     //Viewmodel for user login
@@ -74,34 +81,9 @@ namespace Chirper.ViewModels
 
         
         //Security questions
-        [Required]
-        [StringLength(50, ErrorMessage = "{0} cannot contain more than {1} characters.")]
-        [Display(Name = "Security Question One")]
-        public string SecurityQuestionOne { get; set; }
+        public SecurityQuestions SecurityQuestions { get; set; }
 
-        [Required]
-        [StringLength(50, ErrorMessage = "{0} cannot contain more than {1} characters.")]
-        [Display(Name = "Security Answer One")]
-        public string SecurityAnswerOne { get; set; }
-
-        [Required]
-        [StringLength(50, ErrorMessage = "{0} cannot contain more than {1} characters.")]
-        [Display(Name = "Security Question Two")]
-        public string SecurityQuestionTwo { get; set; }
-
-        [Required]
-        [StringLength(50, ErrorMessage = "{0} cannot contain more than {1} characters.")]
-        [Display(Name = "Security Answer Two")]
-        public string SecurityAnswerTwo { get; set; }
-
-        [Required]
-        [StringLength(50, ErrorMessage = "{0} cannot contain more than {1} characters.")]
-        [Display(Name = "Security Question Three")]
-        public string SecurityQuestionThree { get; set; }
-
-        [Required]
-        [StringLength(50, ErrorMessage = "{0} cannot contain more than {1} characters.")]
-        [Display(Name = "Security Answer Three")]
-        public string SecurityAnswerThree { get; set; }
+        // Security Answers
+        public SecurityAnswers SecurityAnswers { get; set; }
     }
 }

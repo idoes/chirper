@@ -11,7 +11,11 @@ namespace Chirper.Models
         IEnumerable<AspNetUser> GetAllUsers();
         IEnumerable<Cheep> GetCheepsByUserId(string userId);
         AspNetUser GetUserByName(string userName);
+        AspNetUser GetUserById(string userId);
         string GetUserNameById(string userId);
         void CreateCheep(Cheep newCheep);
+        SecurityQuestions GetSecurityQuestions(string userId);
+        SecurityAnswers GetSecurityAnswers(string userId);
+
     }
 }

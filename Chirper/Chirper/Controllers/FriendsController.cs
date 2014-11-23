@@ -31,41 +31,48 @@ namespace Chirper.Controllers
             var users = _repository.GetAllUsers();
             return View(users);
         }
-
-        public ActionResult Cheeps(string userId)
+        /*
+        [HttpGet]
+        public ActionResult Cheeps(string id)
         {
-            if (!String.IsNullOrWhiteSpace(userId))
+            if (!String.IsNullOrWhiteSpace(id))
             {
-                //get all cheeps
-                var userCheeps = _repository.GetCheepsByUserId(userId);
+                var friendUser = _repository.GetUserById(id);
 
-                if (userCheeps != null)
+                if (friendUser != null)
                 {
+                    // Found the user, 
+                    FriendViewModel friend = new FriendViewModel();
 
-                    //TODO:
-                    //Create a viewmodel with the Cheeps and Friends models
-                    List<CheepViewModel> cheeps = new List<CheepViewModel>();
-                    foreach (var cheep in userCheeps)
+                    //friend.Username = _repository.GetUserNameById(id);
+
+                    //get all cheeps
+                    var userCheeps = _repository.GetCheepsByUserId(id);
+
+                    if (userCheeps != null)
                     {
-                        cheeps.Add(new CheepViewModel
+                        List<CheepViewModel> cheeps = new List<CheepViewModel>();
+                        foreach (var cheep in userCheeps)
                         {
-                            CheepText = cheep.Text,
-                            PostedDateTime = cheep.PostedDateTime.ToShortDateString()
-                        });
-                    }
+                            cheeps.Add(new CheepViewModel
+                            {
+                                CheepText = cheep.Text,
+                                PostedDateTime = cheep.PostedDateTime.ToShortDateString()
+                            });
+                        }
 
-                    FriendViewModel friend = new FriendViewModel()
-                    {
-                        Username = _repository.GetUserNameById(userId),
-                        Cheeps = cheeps
-                    };
+                        friend.Cheeps = cheeps;
+
+                        return View(friend);
+                    }
 
                     return View(friend);
                 }
-
+                
             }
 
+            ViewBag.Error = "User could not be found.";
             return View("Error");
-        }
+        }      */
     }
 }

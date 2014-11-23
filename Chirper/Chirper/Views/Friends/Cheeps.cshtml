@@ -5,7 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>cheeps by <strong>@Model.Username</strong>.</h2>
+@if (Model != null)
+{
+    <h2>cheeps by <strong>@Model</strong>.</h2>
+}
+
 
 <p>
     @*Html.ActionLink("Create New", "Create")*@
@@ -16,19 +20,23 @@
             @Html.Raw("Posted On")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Cheeps)
+            @Html.Raw("Cheep")
         </th>
     </tr>
 
-@foreach (var item in Model.Cheeps) {
-    <tr>      
-        <td>
-            @Html.DisplayFor(modelItem => item.PostedDateTime)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CheepText)
-        </td>
-    </tr>
+@if (Model.Cheeps != null)
+{
+    foreach (var item in Model.Cheeps)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.PostedDateTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheepText)
+            </td>
+        </tr>
+    }
 }
 
 </table>

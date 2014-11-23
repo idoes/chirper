@@ -31,8 +31,8 @@ namespace Chirper.Controllers
         public ActionResult Index()
         {
             var user = _repository.GetUserByName(HttpContext.User.Identity.Name);
-
-            //Abstract into method
+ 
+            
             var allUserCheeps = _repository.GetCheepsByUserId(user.Id);
 
             if (allUserCheeps != null)
@@ -68,7 +68,7 @@ namespace Chirper.Controllers
             if (ModelState.IsValid)
             {
                 var user = _repository.GetUserByName(HttpContext.User.Identity.Name);
-
+                
                 Cheep newCheep = new Cheep() {
                     Text = cheep.CheepText,
                     AuthorId = user.Id,

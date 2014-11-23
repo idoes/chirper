@@ -11,7 +11,7 @@ namespace Chirper.Models
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-
+        
         [StringLength(50)]
         public string SecurityQuestionOne { get; set; }
         public string SecurityQuestionTwo { get; set; }

@@ -49,45 +49,45 @@
     <p>These will be used to reset your password</p>
     <br />
     <div class="form-group">
-        @Html.LabelFor(m => m.SecurityQuestionOne, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.SecurityQuestions.QuestionOne, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.SecurityQuestionOne, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.SecurityQuestions.QuestionOne, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.SecurityAnswerOne, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.SecurityAnswers.AnswerOne, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.SecurityAnswerOne, new { @class = "form-control" })
-        </div>
-    </div>
-
-    <br />
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.SecurityQuestionTwo, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.SecurityQuestionTwo, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        @Html.LabelFor(m => m.SecurityAnswerTwo, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.SecurityAnswerTwo, new { @class = "form-control" })
+            @Html.PasswordFor(m => m.SecurityAnswers.AnswerOne, new { @class = "form-control" })
         </div>
     </div>
 
     <br />
 
     <div class="form-group">
-        @Html.LabelFor(m => m.SecurityQuestionThree, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.SecurityQuestions.QuestionTwo, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.SecurityQuestionThree, new { @class = "form-control" })
+            @Html.TextBoxFor(m => m.SecurityQuestions.QuestionTwo, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">
-        @Html.LabelFor(m => m.SecurityAnswerThree, new { @class = "col-md-2 control-label" })
+        @Html.LabelFor(m => m.SecurityAnswers.AnswerTwo, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.SecurityAnswerThree, new { @class = "form-control" })
+            @Html.PasswordFor(m => m.SecurityAnswers.AnswerTwo, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <br />
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.SecurityQuestions.QuestionThree, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.SecurityQuestions.QuestionThree, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.SecurityAnswers.AnswerThree, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.PasswordFor(m => m.SecurityAnswers.AnswerThree, new { @class = "form-control" })
         </div>
     </div>
     <div class="form-group">

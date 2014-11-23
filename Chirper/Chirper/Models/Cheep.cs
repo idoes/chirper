@@ -14,6 +14,7 @@ namespace Chirper.Models
         [Key]       //primary key      
         public int Id { get; set; }
 
+        [Required]
         [StringLength(180, ErrorMessage="Cheep can only contain up to {1} characters.")]
         public string Text { get; set; }
 

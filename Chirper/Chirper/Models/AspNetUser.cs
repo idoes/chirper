@@ -18,7 +18,6 @@ namespace Chirper.Models
         public string Id { get; set; }
 
         [Required]
-        [StringLength(50)]
         public string UserName { get; set; }
 
         [Required]
@@ -34,7 +33,6 @@ namespace Chirper.Models
         public string SecurityQuestionOne { get; set; }
 
         [Required]
-        [StringLength(50)]
         public string SecurityAnswerOne { get; set; }
 
         [Required]
@@ -42,7 +40,6 @@ namespace Chirper.Models
         public string SecurityQuestionTwo { get; set; }
 
         [Required]
-        [StringLength(50)]
         public string SecurityAnswerTwo { get; set; }
 
         [Required]
@@ -50,7 +47,6 @@ namespace Chirper.Models
         public string SecurityQuestionThree { get; set; }
 
         [Required]
-        [StringLength(50)]
         public string SecurityAnswerThree { get; set; }
 
         public string PasswordHash { get; set; }
